@@ -1,1 +1,61 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Privacy Policy</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    .language-selector {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+    .language-selector select {
+      padding: 5px;
+      font-size: 14px;
+    }
+    .content {
+      margin-top: 80px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Language Selector -->
+  <div class="language-selector">
+    <select onchange="changeLanguage(this.value)">
+      <option value="en">English</option>
+      <option value="pl">Polski</option>
+      <option value="uk">Українська</option>
+    </select>
+  </div>
+
+  <!-- Privacy Policy Content -->
+  <div class="content" id="policyContent">
+    <p>Loading...</p>
+  </div>
+
+  <script>
+    // Завантаження контенту з зовнішніх HTML-файлів
+    async function changeLanguage(lang) {
+      try {
+        const response = await fetch(`${lang}.html`);
+        const content = await response.text();
+        document.getElementById('policyContent').innerHTML = content;
+      } catch (error) {
+        document.getElementById('policyContent').innerHTML = "<p>Content not available.</p>";
+        console.error("Language load error:", error);
+      }
+    }
+
+    // Завантаження мови за замовчуванням (наприклад, англійська)
+    changeLanguage('en');
+  </script>
+
+</body>
+</html>
